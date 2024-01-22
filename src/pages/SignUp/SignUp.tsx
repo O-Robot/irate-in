@@ -2,15 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Input, Label } from "../../components/UI/Input/Input";
 import home from "../../assets/home.png";
+import Logo from "../../components/Logo/Logo";
 
 const SignUp = () => {
   return (
     <section className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="mx-auto w-full ">
-        <Link to="/" className="flex items-end justify-center">
-          <img className="h-10" src={home} alt="Logo" />{" "}
-          <p className="ml-1 text-sky-400">Home</p>{" "}
-        </Link>
+        <Logo color={"#0B468C"} />
 
         {/* //Boxes  */}
         <div className="mt-10 px-5 mx-auto w-full  lg:max-w-lg border-solid border-2 text-left border-gray-100 rounded-lg">
