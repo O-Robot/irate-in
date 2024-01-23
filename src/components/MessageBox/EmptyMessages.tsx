@@ -1,11 +1,11 @@
 import { faComments } from "@fortawesome/free-regular-svg-icons";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 
 const EmptyMessages = () => {
   return (
-    <div className="flex  justify-center  w-full h-[80vh] overflow-y-hidden sm:px-6 md:px-8 lg:ps-72 flex-col items-center align-middle">
+    <div className="flex  justify-center  w-full h-[80vh] overflow-y-hidden sm:px-6 md:px-8 lg:ps-72 flex-col items-center align-middle ">
       <div className="flex justify-center flex-col items-center text-[#828282] w-[308px] text-center ">
         <FontAwesomeIcon
           icon={faComments}
