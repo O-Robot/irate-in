@@ -60,25 +60,32 @@ const MessageBox = () => {
         </section>
         {/* Message Send  */}
         <div id="SendMessage" className="p-6 mb-10">
-          <div className="">
+          <div>
             <Label
               htmlFor="search"
               label="Search"
               className="block text-sm font-medium sr-only leading-6 text-gray-500 text-left"
             />
-            <div className="relative my-4">
+            <div className="flex rounded-lg shadow-sm">
               <Input
                 name="search"
                 type="text"
                 placeholder="Write your Message"
-                className="block w-full text-gray-900 shadow-sm ring-1 ring-inset ring-[#E0E0E0] placeholder:text-[#828282] mb-3 py-4 px-4 bg-[#F8F8F8] rounded-md text-sm focus:border-[#0B468C] focus:ring-[#0B468C] "
+                className="block w-full text-gray-900 shadow-sm placeholder:text-[#828282] pe-14 py-5 px-4 bg-[#F8F8F8] rounded-md text-sm  focus:z-10 focus:outline-none focus:border-none focus:ring-none  "
               />
-              <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 pe-4">
+
+              <button
+                type="button"
+                onClick={() => {
+                  alert("Sent");
+                }}
+                className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-[#F8F8F8]"
+              >
                 <FontAwesomeIcon
                   icon={faPaperPlane}
                   className="text-[#1A75E0] fa-xl"
                 />
-              </div>
+              </button>
             </div>
           </div>
         </div>
