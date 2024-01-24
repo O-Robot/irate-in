@@ -24,6 +24,8 @@ export const Input: FC<InputProps> = ({
   id = "",
   inputStyle = {},
   inputProps = {},
+  value = "",
+  onChange,
   labelClassName,
   labelStyle = {},
 }) => {
@@ -32,6 +34,8 @@ export const Input: FC<InputProps> = ({
       type={type}
       className={className}
       name={name}
+      value={value}
+      onChange={onChange}
       placeholder={placeholder || label}
       id={id}
       style={{ ...inputStyle }}

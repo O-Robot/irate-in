@@ -8,9 +8,7 @@ const InboxContainer = () => {
   return (
     <div className="w-full">
       <header className="pt-5 px-4 sm:px-6 md:px-8 lg:ps-72">
-        <h1 className="block text-lg  text-gray-800 sm:text-3xl dark:text-white">
-          Inbox
-        </h1>
+        <h1 className="block text-lg  text-gray-800 sm:text-3xl">Inbox</h1>
         <div className="">
           <Label
             htmlFor="search"

@@ -9,7 +9,7 @@ const MessageContainer = () => {
         <InboxContainer />
         {/* <MessageBox /> */}
       </div>
-      <div className="sm:hidden md:block lg:block col-span-12 lg:col-span-7 md:col-span-8 bg-white !h-[100vh]  ">
+      <div className="!sm:hidden md:block lg:block col-span-12 lg:col-span-7 md:col-span-8 bg-white !h-[100vh]  ">
         <MessageBox />
       </div>
     </div>

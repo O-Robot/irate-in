@@ -22,7 +22,7 @@ const Sidebar = () => {
           <Logo colour={"white"} />
         </div>
         {/* Logo  */}
-        <nav className="p-6 mt-5 w-full flex flex-col flex-wrap h-[80%]">
+        <nav className="p-6 mt-5 w-full flex flex-col flex-wrap h-[83%]">
           <ul className="space-y-1.5">
             <li className="bg-slate-300/10">
               <a
