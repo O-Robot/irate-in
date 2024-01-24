@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="w-full flex items-center justify-end ms-auto sm:justify-between sm:gap-x-3 sm:order-3">
           <div className="hidden sm:block">
             <div className="relative">
-              <button className="py-2 px-4  block w-full border-gray-200 rounded-lg text-sm bg-[#0B468C] text-white ">
+              <button className="py-2 px-6  block w-full border-gray-200 rounded-lg text-sm bg-[#0B468C] text-white ">
                 <FontAwesomeIcon icon={faAdd} className="pr-2" />
                 Add a Person
               </button>
