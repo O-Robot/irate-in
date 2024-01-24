@@ -9,18 +9,17 @@ export const signupApi = async (
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ success: true });
-      console.log("UserSignUp", fullname, password, email);
     }, 1000);
   });
 };
 
 export const loginApi = async (
-  username: string,
+  email: string,
   password: string
 ): Promise<{ success: boolean; user?: User }> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      if (username === "test" && password === "password") {
+      if (email === "test@test.com" && password === "password") {
         resolve({
           success: true,
           user: { id: "1", fullname: "test", email: "User" },
