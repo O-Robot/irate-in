@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Input, Label } from "../../components/UI/Input/Input";
-import home from "../../assets/home.png";
 import Logo from "../../components/Logo/Logo";
 
 const SignUp = () => {

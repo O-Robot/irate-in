@@ -10,9 +10,9 @@ const PersonMessage = () => {
       />
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-between">
-          <strong className="text-xl leading-snug font-normal text-[#4F4F4F]">
+          <p className="text-xl leading-snug font-normal text-[#4F4F4F]">
             Abraham
-          </strong>
+          </p>
           <span className="text-[#000] text-[12px] font-normal ">3:45 PM</span>
         </div>
 
@@ -20,13 +20,12 @@ const PersonMessage = () => {
           <span className="text-nowrap block text-[12px] font-medium text-[#4F4F4F] ">
             Kindly check out these images, they are very...
           </span>
-          <span className="text-[14px] font-normal rounded-full py-0.5 px-1 bg-[#1A75E0] text-white">
+          <span className="text-[10px] font-normal rounded-full py-1 px-1.5 bg-[#1A75E0] text-white">
             12
           </span>
         </div>
       </div>
     </div>
-  
   );
 };
 
