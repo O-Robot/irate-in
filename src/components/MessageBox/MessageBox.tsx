@@ -3,6 +3,8 @@ import image from "../../assets/image.png";
 import { Input, Label } from "../UI/Input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import LMessage from "./lMessage";
+import RMessage from "./rMessage";
 
 const MessageBox = () => {
   return (
@@ -43,8 +45,9 @@ const MessageBox = () => {
           </div>
         </div>
         <hr className="py-0.2 h-0 bg-gray-300 w-full mx-auto" />
+        {/* Message Body  */}
         <section className=" p-6 w-full overflow-y-auto h-[62vh]">
-          <div className="w-[100%] h-[50px]">
+          <div className="w-[100%]">
             <span className=" block text-[12px] font-medium text-[#828282] text-center ">
               Nov 23, 2023
             </span>
@@ -57,7 +60,14 @@ const MessageBox = () => {
               2 Bedroom Duplex
             </b>
           </div>
+
+          {/* Messages  */}
+          <div className="flex flex-col gap-y-4 py-5">
+            <LMessage />
+            <RMessage />
+          </div>
         </section>
+        {/* Message Body  */}
         {/* Message Send  */}
         <div id="SendMessage" className="p-6 mb-10">
           <div>
@@ -89,6 +99,7 @@ const MessageBox = () => {
             </div>
           </div>
         </div>
+        {/* Message Send  */}
       </section>
     </>
   );
