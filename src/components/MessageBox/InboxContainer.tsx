@@ -31,7 +31,7 @@ const InboxContainer = () => {
         </div>
       </header>
       <hr className="py-0.2 h-0 mt-7 bg-gray-300 w-full mx-auto" />
-      <section className="pt-2 px-4 sm:px-6 md:px-8 lg:ps-72 mt-3 overflow-y-auto h-[70vh]">
+      <section className="py-2 px-4 sm:px-6 md:px-8 lg:ps-72 mt-3 overflow-y-auto h-[70vh]">
         <PersonMessage />
         <PersonMessage />
         <PersonMessage />

@@ -1,5 +1,8 @@
 import React from "react";
 import image from "../../assets/image.png";
+import { Input, Label } from "../UI/Input/Input";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 const MessageBox = () => {
   return (
@@ -19,38 +22,63 @@ const MessageBox = () => {
         </div>
       </div> */}
       </section>
-      <section id="selectedMessage">
-        <div>
-          <div className="flex items-center gap-3 px-10 py-5">
+      <section
+        id="selectedMessage"
+        className="  border-e border-gray-200 pt-7 pb-10 overflow-y-none lg:block lg:translate-x-0 h-[100vh] flex-col flex-wrap"
+      >
+        <div className="flex items-center gap-3 px-10 py-5">
+          <img
+            className="inline-block h-[40px] w-[40px] rounded-[16px]"
+            src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+            alt="Image Description"
+          />
+          <div className="flex flex-col w-full">
+            <p className="text-xl leading-snug font-normal text-[#4F4F4F]">
+              Abraham
+            </p>
+
+            <span className="text-[12px] font-normal text-[#008000] ">
+              Online
+            </span>
+          </div>
+        </div>
+        <hr className="py-0.2 h-0 bg-gray-300 w-full mx-auto" />
+        <section className=" p-6 w-full overflow-y-auto h-[62vh]">
+          <div className="w-[100%] h-[50px]">
+            <span className=" block text-[12px] font-medium text-[#828282] text-center ">
+              Nov 23, 2023
+            </span>
             <img
-              className="inline-block h-[40px] w-[40px] rounded-[16px]"
-              src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+              className="w-full rounded-[16px] pt-4"
+              src={image}
               alt="Image Description"
             />
-            <div className="flex flex-col w-full">
-              <p className="text-xl leading-snug font-normal text-[#4F4F4F]">
-                Abraham
-              </p>
-
-              <span className="text-[12px] font-normal text-[#008000] ">
-                Online
-              </span>
-            </div>
+            <b className=" block text-[16px] font-medium text-[#4F4F4F] pt-3">
+              2 Bedroom Duplex
+            </b>
           </div>
-          <hr className="py-0.2 h-0 bg-gray-300 w-full mx-auto" />
-          <div className="flex items-center gap-3 px-10 py-5 ">
-            <div className="w-[100%] h-[50px]">
-              <span className=" block text-[12px] font-medium text-[#828282] text-center ">
-                Nov 23, 2023
-              </span>
-              <img
-                className="w-full rounded-[16px] pt-4"
-                src={image}
-                alt="Image Description"
+        </section>
+        {/* Message Send  */}
+        <div id="SendMessage" className="p-6 mb-10">
+          <div className="">
+            <Label
+              htmlFor="search"
+              label="Search"
+              className="block text-sm font-medium sr-only leading-6 text-gray-500 text-left"
+            />
+            <div className="relative my-4">
+              <Input
+                name="search"
+                type="text"
+                placeholder="Write your Message"
+                className="block w-full text-gray-900 shadow-sm ring-1 ring-inset ring-[#E0E0E0] placeholder:text-[#828282] mb-3 py-4 px-4 bg-[#F8F8F8] rounded-md text-sm focus:border-[#0B468C] focus:ring-[#0B468C] "
               />
-              <b className=" block text-[16px] font-medium text-[#4F4F4F] pt-3">
-                2 Bedroom Duplex
-              </b>
+              <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 pe-4">
+                <FontAwesomeIcon
+                  icon={faPaperPlane}
+                  className="text-[#1A75E0] fa-xl"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ const Sidebar = () => {
     <section>
       <Navbar />
 
-      <div className=" hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 border-e border-gray-200 pt-7 pb-10 overflow-y-none lg:block lg:translate-x-0 bg-[#0B468C] h-[100vh]">
+      <div className="transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 border-e border-gray-200 pt-7 pb-10 overflow-y-none lg:block lg:translate-x-0 bg-[#0B468C] h-[100vh]">
         {/* Logo  */}
         <div className="px-6">
           <Logo colour={"white"} />
