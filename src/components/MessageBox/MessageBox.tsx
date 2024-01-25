@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import image from "../../assets/image.png";
 import { Input, Label } from "../UI/Input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,9 @@ import LMessage from "./lMessage";
 import RMessage from "./rMessage";
 
 const MessageBox = () => {
+  const [newMessage, setNewMessage] = useState<string>("");
+
+  const handleSendMessage = () => {};
   return (
     <>
       <section id="noSelectedMessage">
@@ -26,7 +29,7 @@ const MessageBox = () => {
       </section>
       <section
         id="selectedMessage"
-        className="  border-e border-gray-200 pt-7 pb-10 overflow-y-none lg:block lg:translate-x-0 h-[100vh] flex-col flex-wrap"
+        className="  border-e border-gray-200 pt-7 pb-10 overflow-y-hidden lg:block lg:translate-x-0 h-[100vh] flex-col flex-wrap"
       >
         <div className="flex items-center gap-3 px-10 py-5">
           <img
@@ -63,8 +66,11 @@ const MessageBox = () => {
 
           {/* Messages  */}
           <div className="flex flex-col gap-y-4 py-5">
-            <LMessage />
-            <RMessage />
+            <LMessage message="Hello! How are you?" timestamp="10:15 AM" />
+            <RMessage
+              message="I'm doing well, thank you! How about you?"
+              timestamp="10:18 AM"
+            />
           </div>
         </section>
         {/* Message Body  */}

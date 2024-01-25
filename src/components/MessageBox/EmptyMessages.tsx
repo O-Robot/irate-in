@@ -1,11 +1,12 @@
 import { faComments } from "@fortawesome/free-regular-svg-icons";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import Modal from "../UI/Modal/Modal";
+import { useModal } from "../../context/ModalContext";
 
-const EmptyMessages = () => {
-  const [showModal, setShowModal] = useState(false);
+const EmptyMessages: FC = () => {
+  const { openModal } = useModal();
   return (
     <>
       {" "}
@@ -23,7 +24,7 @@ const EmptyMessages = () => {
           <div className="p-6">
             <button
               className="py-3 px-6  block border-gray-200 rounded-lg text-sm bg-[#0B468C] text-white "
-              onClick={() => setShowModal(true)}
+              onClick={openModal}
             >
               <FontAwesomeIcon icon={faAdd} className="pr-2" />
               Add a Person

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/UserContext";
+import { ModalProvider } from "./context/ModalContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <ModalProvider>
+        <App />
+      </ModalProvider>
     </AuthProvider>
   </React.StrictMode>
 );
