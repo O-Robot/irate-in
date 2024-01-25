@@ -1,6 +1,6 @@
 import { faComments } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import home from "../../assets/home.png";
 import Logo from "../Logo/Logo";
@@ -8,30 +8,47 @@ import {
   faAngleRight,
   faArrowRightFromBracket,
   faBars,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
+  const [showSidebar, setShowSidebar] = useState<boolean>(false);
+
   return (
     <section>
-      <Navbar />
+      <Navbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
 
-      <div className="transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 border-e border-gray-200 pt-7 pb-10 overflow-y-none lg:block lg:translate-x-0 bg-[#0B468C] h-[100vh]">
+      <div
+        className={`transform ${
+          showSidebar ? "block w-full" : "hidden w-64 "
+        }  fixed top-0 start-0 bottom-0 z-[60] border-e lg:w-64 border-gray-200 pt-3 pb-10 overflow-y-none lg:block lg:translate-x-0 bg-[#0B468C] h-[100vh]`}
+      >
         {/* Logo  */}
+        {showSidebar && (
+          <div className="w-full lg:hidden pr-8 pt-2 flex items-center">
+            <div className="ml-auto cursor-pointer">
+              <button onClick={() => setShowSidebar(false)}>
+                <FontAwesomeIcon icon={faXmark} className="text-white" />
+              </button>
+            </div>
+          </div>
+        )}
         <div className="px-6">
           <Logo colour={"white"} />
         </div>
         {/* Logo  */}
-        <nav className="p-6 mt-5 w-full flex flex-col flex-wrap h-[83%]">
+        <nav className="p-6 h-[80%] mt-5 w-full flex flex-col flex-wrap lg:h-[83%]">
           <ul className="space-y-1.5">
             <li className="bg-slate-300/10">
-              <a
+              <Link
                 className="flex items-center gap-x-3.5 py-4 px-5 text-sm text-white "
-                href="#"
+                onClick={()=>setShowSidebar(false)}
+                to={"/dashboard"}
               >
                 <FontAwesomeIcon icon={faComments} size="lg" />
                 Messages
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

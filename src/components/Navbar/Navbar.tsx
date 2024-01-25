@@ -1,11 +1,16 @@
-import React, { FC } from "react";
+import React, { FC, InputHTMLAttributes } from "react";
 import Logo from "../Logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { useModal } from "../../context/ModalContext";
 
-const Navbar: FC = () => {
+interface NavbarProps {
+  showSidebar: boolean;
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ showSidebar, setShowSidebar }) => {
   const { openModal } = useModal();
   return (
     <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b border-[#F2F2F2] text-sm py-2.5 sm:py-4 lg:ps-64 ">
@@ -14,7 +19,11 @@ const Navbar: FC = () => {
         aria-label="Global"
       >
         <div className="me-5 lg:me-0 lg:hidden">
-          <button type="button" className="text-blue-500">
+          <button
+            type="button"
+            onClick={() => setShowSidebar(true)}
+            className="text-blue-500"
+          >
             <span className="sr-only">Toggle Navigation</span>
             <FontAwesomeIcon icon={faBars} size="lg" />
           </button>
