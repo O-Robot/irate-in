@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { useModal } from "../../context/ModalContext";
+import { useAuth } from "../../context/UserContext";
 
 interface NavbarProps {
   showSidebar: boolean;
@@ -12,6 +13,9 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ showSidebar, setShowSidebar }) => {
   const { openModal } = useModal();
+  const { auth } = useAuth();
+
+  console.log("user", auth);
   return (
     <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b border-[#F2F2F2] text-sm py-2.5 sm:py-4 lg:ps-64 ">
       <nav

@@ -1,6 +1,10 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { Input, Label } from "../Input/Input";
 import { useModal } from "../../../context/ModalContext";
+import { addPerson } from "../../../context/api";
+import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 interface ModalProps {
   children: ReactNode;
@@ -8,6 +12,48 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ children }) => {
   const { showModal, closeModal } = useModal();
+  const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
+  const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+  const errorCheck = () => {
+    let validEmail = EMAIL_REGEX.test(email);
+    let iserror = false;
+
+    if (email.length < 3 || !validEmail) {
+      setErrorMsg("Kindly input a valid email Address");
+
+      iserror = true;
+    }
+
+    if (iserror) {
+      return false;
+    }
+    return true;
+  };
+  function adPerson() {
+    if (errorCheck()) {
+      console.log("No error, calling handleSignUp");
+      handleAddPerson();
+    }
+  }
+
+  const handleAddPerson = async () => {
+    try {
+      const response = await addPerson(email, name);
+
+      if (response.success) {
+        console.log("Added successful");
+        closeModal();
+      } else {
+        console.warn("Adding failed");
+      }
+    } catch (error) {
+      console.error("Error during adding:", error);
+    }
+  };
+
   return (
     <>
       {showModal && (
@@ -22,6 +68,12 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                 </div>
 
                 <div className="mt-5">
+                  {errorMsg && (
+                    <p className=" text-red-500 font-bold text-xs pb-2">
+                      <FontAwesomeIcon icon={faInfoCircle} className="" />{" "}
+                      {errorMsg}
+                    </p>
+                  )}
                   <div className="grid gap-y-2">
                     <div>
                       <Label
@@ -34,6 +86,11 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                           id="email"
                           name="email"
                           type="email"
+                          value={email}
+                          onChange={(e) => {
+                            setEmail(e.target.value);
+                            setErrorMsg("");
+                          }}
                           placeholder="E.g. john@gmail.com"
                           className="block w-full bg-[#F8F8F8] rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-100 placeholder:text-gray-300  focus:ring-[#0B468C] mb-3"
                         />
@@ -51,6 +108,8 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                           id="name"
                           name="name"
                           type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                           placeholder="E.g. John"
                           className="block w-full bg-[#F8F8F8] rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-100 placeholder:text-gray-300 focus:ring-[#0B468C] mb-3"
                         />
@@ -67,6 +126,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                       </button>
                       <button
                         type="submit"
+                        onClick={adPerson}
                         className="w-1/2 py-3 px-4 ml-2 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-[#0B468C] text-white hover:bg-white hover:text-[#0B468C] hover:border-[#0B468C] disabled:opacity-50 disabled:pointer-events-none"
                       >
                         Add Person

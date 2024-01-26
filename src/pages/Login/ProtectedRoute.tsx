@@ -1,21 +1,29 @@
 // ProtectedRoute.tsx
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Route, Navigate, useLocation, Outlet } from "react-router-dom";
 import { useAuth } from "../../context/UserContext";
+import { getCookie } from "../../context/utility";
+import { toast } from "react-toastify";
 
-interface ProtectedRouteProps {
-  path: string;
-  element: React.ReactNode;
-}
+const ProtectedRoute = () => {
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ path, element }) => {
-  const { state } = useAuth();
-  const isAuthenticated = state;
+  const location = useLocation();
+ 
 
-  return isAuthenticated ? (
-    <Route path={path} element={element} />
+  let access = getCookie("id1");
+  let refresh = getCookie("id2");
+
+  return access && refresh ? (
+    <Outlet />
   ) : (
-    <Navigate to="/login" />
+    <>
+      {toast.error("Kindly Login to access this page!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+      })}
+      <Navigate to="/" />
+    </>
   );
 };
 

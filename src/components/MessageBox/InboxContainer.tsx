@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input, Label } from "../UI/Input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import PersonMessage from "./AllMessages";
+import { getChatsApi } from "../../context/api";
 
 const InboxContainer = () => {
+  useEffect(() => {
+    getChatsApi()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
     <div className="w-full">
       <header className="pt-5 px-4 sm:px-6 md:px-8 lg:ps-72">

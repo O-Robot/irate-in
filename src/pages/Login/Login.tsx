@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { Input, Label } from "../../components/UI/Input/Input";
 import Logo from "../../components/Logo/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginApi } from "../../context/api";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
@@ -12,6 +12,9 @@ import { setCookie } from "../../context/utility";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
+  const { auth, setAuth } = useAuth();
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
@@ -58,12 +61,21 @@ const Login = () => {
   const handleSignIn = async () => {
     try {
       const response = await loginApi(password, email);
-      console.log(response);
       const access = response?.access;
       const refresh = response?.refresh;
-      const userInfo = jwtDecode(access);
+      const userInfo: { email: string; fullname: string } = jwtDecode(refresh);
+      console.log("info", userInfo.email, userInfo.fullname);
       setCookie("id1", access, 3);
       setCookie("id2", refresh, 3);
+      const updatedUserDetails = {
+        user: {
+          id: "",
+          fullname: userInfo.fullname,
+          userEmail: userInfo.email,
+        },
+      };
+      setAuth(updatedUserDetails);
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error during signup:", error);
     }
