@@ -6,6 +6,10 @@ import Logo from "../../components/Logo/Logo";
 import { Link } from "react-router-dom";
 import { loginApi } from "../../context/api";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/UserContext";
+import { setCookie } from "../../context/utility";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -13,45 +17,58 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [errorType, setErrorType] = useState<string>("");
 
-  const LogIn = () => {
-    if (!errorHand) {
-      handleSignIn();
-    } else {
-      errorHand();
-    }
-  };
+  const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
-  const handleSignIn = async () => {
-    try {
-      const results = await loginApi(email, password);
-      if (results.success) {
-        console.log("hellor", results);
-        alert("i got her");
-      } else {
-        console.error("Failed to sign in");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const isValid = emailRegex.test(email);
+  const errorCheck = () => {
+    let validEmail = EMAIL_REGEX.test(email);
+    let iserror = false;
 
-  const errorHand = () => {
-    if ((email.length || password.length) < 6) {
-      setErrorMsg("Kindly Fill in all fields");
-      setErrorType("all");
-    } else if (!isValid) {
+    if (email.length < 3 || !validEmail) {
       setErrorMsg("Kindly input a valid email Address");
       setErrorType("email");
+      iserror = true;
     } else if (password.length < 6) {
       setErrorMsg("Password Should be at least 6 characters");
       setErrorType("password");
-    } else {
+      iserror = true;
+    }
+
+    if (iserror) {
       return false;
     }
     return true;
   };
+
+  function LogIn() {
+    if (errorCheck()) {
+      console.log("No error, calling handleSignUp");
+      handleSignIn();
+    } else {
+      toast.error("Fill in all Fields Correctly!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+      });
+      console.log("Error", errorMsg);
+      console.log("Error found, showing alert");
+    }
+  }
+
+  const handleSignIn = async () => {
+    try {
+      const response = await loginApi(password, email);
+      console.log(response);
+      const access = response?.access;
+      const refresh = response?.refresh;
+      const userInfo = jwtDecode(access);
+      setCookie("id1", access, 3);
+      setCookie("id2", refresh, 3);
+    } catch (error) {
+      console.error("Error during signup:", error);
+    }
+  };
+
   return (
     <section className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="mx-auto w-full ">

@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import { ModalProvider } from "./context/ModalContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./pages/Login/ProtectedRoute";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />{" "}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
