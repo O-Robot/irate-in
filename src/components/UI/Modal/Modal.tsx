@@ -34,8 +34,25 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                           id="email"
                           name="email"
                           type="email"
-                          placeholder="Email Address"
+                          placeholder="E.g. john@gmail.com"
                           className="block w-full bg-[#F8F8F8] rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-100 placeholder:text-gray-300  focus:ring-[#0B468C] mb-3"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label
+                        htmlFor="name"
+                        label="Name (Optional)"
+                        className="block text-sm font-medium leading-6 text-gray-500 text-left"
+                      />
+                      <div className="mt-2 ">
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          placeholder="E.g. John"
+                          className="block w-full bg-[#F8F8F8] rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-100 placeholder:text-gray-300 focus:ring-[#0B468C] mb-3"
                         />
                       </div>
                     </div>

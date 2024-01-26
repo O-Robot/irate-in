@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input, Label } from "../../components/UI/Input/Input";
 import Logo from "../../components/Logo/Logo";
 import { signupApi } from "../../context/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
-  const [fullname, setFullname] = useState<string>("");
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -16,59 +17,72 @@ const SignUp = () => {
   const [errorType, setErrorType] = useState<string>("");
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFirstName = e.target.value;
     setErrorMsg("");
     setErrorType("");
-    setFirstName(newFirstName);
-    setFullname(`${newFirstName} ${lastName}`);
+    setFirstName(e.target.value);
   };
 
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newLastName = e.target.value;
     setErrorMsg("");
     setErrorType("");
-    setLastName(newLastName);
-    setFullname(`${firstName} ${newLastName}`);
+    setLastName(e.target.value);
   };
 
-  const SignUp = () => {
-    if (!errorHand) {
-      handleSignUp();
-    } else {
-      errorHand();
-    }
-  };
+  const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
-  const handleSignUp = async () => {
-    try {
-      const results = await signupApi(fullname, email, password);
-      if (results.success) {
-        console.log(results);
-        console.log("hello", fullname, email, password);
-      } else {
-        console.error("Failed to sign up");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const isValid = emailRegex.test(email);
+  const errorCheck = () => {
+    let validEmail = EMAIL_REGEX.test(email);
+    let iserror = false;
 
-  const errorHand = () => {
-    if ((firstName.length || lastName.length || email.length) < 3) {
+    if ((firstName.length || lastName.length) < 3) {
       setErrorMsg("Kindly Fill in all fields");
       setErrorType("all");
-    } else if (!isValid) {
+      iserror = true;
+    } else if (email.length < 3 || !validEmail) {
       setErrorMsg("Kindly input a valid email Address");
       setErrorType("email");
+      iserror = true;
     } else if (password.length < 6) {
       setErrorMsg("Password Should be at least 6 characters");
       setErrorType("password");
-    } else {
+      iserror = true;
+    }
+
+    if (iserror) {
       return false;
     }
     return true;
+  };
+  //SignUp User
+  function SignUp() {
+    if (errorCheck()) {
+      console.log("No error, calling handleSignUp");
+      handleSignUp();
+    } else {
+      toast.error("Fill in all Fields Correctly!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+      });
+      console.log("Error", errorMsg);
+      console.log("Error found, showing alert");
+    }
+  }
+
+  const handleSignUp = async () => {
+    try {
+      const response = await signupApi(firstName, lastName, password, email);
+
+      if (response.success) {
+        navigate("/");
+        console.log("SignUp successful");
+      } else {
+        console.warn("SignUp failed");
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+    }
   };
 
   return (
@@ -140,6 +154,7 @@ const SignUp = () => {
               />
               <div className="mt-2">
                 <Input
+                  id="email"
                   name="email"
                   type="email"
                   value={email}
@@ -165,6 +180,7 @@ const SignUp = () => {
                 />
                 <div className="mt-2">
                   <Input
+                    id="password"
                     name="password"
                     type="password"
                     value={password}
