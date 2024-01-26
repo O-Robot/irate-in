@@ -1,5 +1,5 @@
-
-import React, { createContext, useState, ReactNode, useContext } from "react";
+// AuthContext.tsx
+import React, { createContext, useState, ReactNode, useEffect } from "react";
 
 type User = {
   id: string;
@@ -11,11 +11,7 @@ type AuthContextProps = {
   auth: {
     user: User;
   };
-  setAuth: React.Dispatch<
-    React.SetStateAction<{
-      user: User;
-    }>
-  >;
+  setAuth: React.Dispatch<React.SetStateAction<{ user: User }>>;
 };
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
@@ -25,13 +21,15 @@ export const AuthContext = createContext<AuthContextProps | undefined>(
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [auth, setAuth] = useState({
-    user: {
-      id: "",
-      userEmail: "",
-      fullname: "",
-    },
-  });
+  const storedAuth = localStorage.getItem("auth");
+  const initialAuth = storedAuth ? JSON.parse(storedAuth) : { user: {} };
+
+  const [auth, setAuth] = useState(initialAuth);
+
+  useEffect(() => {
+    // Save auth to localStorage whenever it changes
+    localStorage.setItem("auth", JSON.stringify(auth));
+  }, [auth]);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
@@ -41,7 +39,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 };
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
+  const context = React.useContext(AuthContext);
 
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");

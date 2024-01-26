@@ -15,7 +15,7 @@ const Navbar: React.FC<NavbarProps> = ({ showSidebar, setShowSidebar }) => {
   const { openModal } = useModal();
   const { auth } = useAuth();
 
-  console.log("user", auth);
+  console.log("user", auth.user.fullname);
   return (
     <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b border-[#F2F2F2] text-sm py-2.5 sm:py-4 lg:ps-64 ">
       <nav
@@ -56,10 +56,10 @@ const Navbar: React.FC<NavbarProps> = ({ showSidebar, setShowSidebar }) => {
             <div className="w-auto h-[3rem] inline-flex border rounded-lg border-[#E0E0E0] p-2 justify-center items-center gap-3">
               <img
                 className="inline-block h-[32px] w-[32px] rounded-full"
-                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                src="https://ogooluwaniadewale.com/icons/favicon.ico"
                 alt="Image Description"
               />
-              <p className="text-[#4F4F4F]">John Doe </p>
+              <p className="text-[#4F4F4F]">{auth.user.fullname} </p>
               <FontAwesomeIcon
                 icon={faAngleDown}
                 className="text-[#E0E0E0] fa-lg"

@@ -32,9 +32,9 @@ const Login = () => {
       hideProgressBar: true,
     });
   };
-  useEffect(() => {
-    reDirect();
-  }, []);
+  // useEffect(() => {
+  //   reDirect();
+  // }, []);
 
   const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
@@ -84,13 +84,11 @@ const Login = () => {
       setCookie("id1", access, 3);
       setCookie("id2", refresh, 3);
       const updatedUserDetails = {
-        user: {
-          id: "",
-          fullname: userInfo.fullname,
-          userEmail: userInfo.email,
-        },
+        id: "",
+        fullname: userInfo.fullname,
+        userEmail: userInfo.email,
       };
-      setAuth(updatedUserDetails);
+      setAuth({ user: updatedUserDetails });
       navigate("/dashboard");
     } catch (error) {
       console.error("Error during signup:", error);
