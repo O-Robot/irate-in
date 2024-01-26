@@ -6,7 +6,7 @@ import { deleteCookie, getCookie, setCookie } from "./utility";
 
 const authToken = `Bearer ${getCookie("id1")}`;
 const api: AxiosInstance = axios.create({
-  baseURL: "https://irateinchat.pythonanywhere.com/api/v1/",
+  baseURL: "http://irateinchat.pythonanywhere.com/api/v1/",
   timeout: 5000, // request timeout in milliseconds
   headers: {
     "Content-Type": "application/json",
@@ -18,6 +18,7 @@ export const USER_CREATE = "/auth/users/";
 export const USER_LOGIN = "/auth/login/";
 export const TOKEN_REFRESH = "/auth/token/refresh/";
 export const GET_CHATS = "/chat/user-chats/";
+export const GET_USERS = "/auth/users/";
 export const ADD_USER = "/auth/users/add-user/";
 // export const GET_PERSON_CHAT = `/chat/user-chats/${id}`;
 
@@ -25,8 +26,15 @@ interface ApiResponse {
   access: string;
   refresh: string;
   success: boolean;
+  results: User[];
 }
-
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  firstname: "Oladosu";
+  lastname: "Larinde";
+}
 /// Signup
 export const signupApi = async (
   firstname: string,
@@ -37,7 +45,7 @@ export const signupApi = async (
   const loadingToastId = toast.info("Creating account...", {
     position: "top-right",
     autoClose: false,
-    toastId: "signup",
+    toastId: "signup1",
   });
 
   try {
@@ -55,18 +63,17 @@ export const signupApi = async (
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
-        toastId: "signup",
+        toastId: "signupc",
       });
     } else {
       toast.error("Account not Created!", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
-        toastId: "signup",
+        toastId: "signupn",
       });
     }
-
-    return response.data;
+    return { success: true, access: "", refresh: "", results: [] };
   } catch (error) {
     console.error("Error during signup:", error);
     toast.dismiss(loadingToastId);
@@ -75,10 +82,10 @@ export const signupApi = async (
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: true,
-      toastId: "signup",
+      toastId: "signupe",
     });
 
-    return { success: false, access: "", refresh: "" };
+    return { success: false, access: "", refresh: "", results: [] };
   }
 };
 // Signup
@@ -117,7 +124,6 @@ export const loginApi = async (
         toastId: "login",
       });
     }
-
     return response.data;
   } catch (error) {
     console.error("Error during login:", error);
@@ -127,10 +133,10 @@ export const loginApi = async (
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: true,
-      toastId: "login",
+      toastId: "err",
     });
 
-    return { success: false, access: "", refresh: "" };
+    return { success: false, access: "", refresh: "", results: [] };
   }
 };
 // LogIn
@@ -154,33 +160,18 @@ export const getChatsApi = async (): Promise<ApiResponse> => {
         toastId: "chats",
       });
     }
-    // else {
-    //   toast.error("Chats Failed! Please try again.", {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: true,
-    //     toastId: "chats",
-    //   });
-    // }
 
     return response.data;
   } catch (error) {
     console.error("Error during login:", error);
     toast.dismiss(loadingToastId);
 
-    // toast.error("Error Retrieving Chats.", {
-    //   position: "top-right",
-    //   autoClose: 3000,
-    //   hideProgressBar: true,
-    //   toastId: "chats",
-    // });
-
-    return { success: false, access: "", refresh: "" };
+    return { success: false, access: "", refresh: "", results: [] };
   }
 };
 // getChats
 
-// LogIn
+// addPerson
 export const addPerson = async (
   email: string,
   name?: string
@@ -188,7 +179,7 @@ export const addPerson = async (
   const loadingToastId = toast.info("Adding Person...", {
     position: "top-right",
     autoClose: false,
-    toastId: "add",
+    toastId: "add1",
   });
 
   try {
@@ -204,18 +195,18 @@ export const addPerson = async (
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
-        toastId: "add",
+        toastId: "add2",
       });
     } else {
       toast.error("Adding Failed! Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
-        toastId: "add",
+        toastId: "add3",
       });
     }
 
-    return response.data;
+    return { success: true, access: "", refresh: "", results: [] };
   } catch (error) {
     toast.dismiss(loadingToastId);
 
@@ -225,60 +216,12 @@ export const addPerson = async (
       hideProgressBar: true,
     });
 
-    return { success: false, access: "", refresh: "" };
+    return { success: false, access: "", refresh: "", results: [] };
   }
 };
-// LogIn
+// addPerson
 
-// let retrycount = 0;
-
-// export const updateUserAccess = async (): Promise<ApiResponse> => {
-//   const options = {
-//     headers: {
-//       Accept: "application/json",
-//       Authorization: getAuthToken(),
-//     },
-//   };
-//   try {
-//     const response: AxiosResponse<ApiResponse> = await api.post(
-//       TOKEN_REFRESH,
-//       {},
-//       // options
-//     );
-//     console.log("cooki", response.data);
-//     if (response.data.access) {
-//       setCookie("id1", response.data.access);
-//       toast.success("User Updated!", {
-//         position: "top-right",
-//         autoClose: 3000,
-//         hideProgressBar: true,
-//       });
-//     } else {
-//       toast.error("Error! Please try again.", {
-//         position: "top-right",
-//         autoClose: 3000,
-//         hideProgressBar: true,
-//       });
-//     }
-
-//     return response.data;
-//   } catch (err: any) {
-//     if (
-//       String(err).indexOf("Network Error") > -1 ||
-//       err?.response?.status == 500
-//     ) {
-//       if (retrycount <= 5) {
-//         ++retrycount;
-//         updateUserAccess();
-//       } else {
-//         retrycount = 0;
-//       }
-//       return err;
-//     }
-
-//     return { success: false, access: "", refresh: "" };
-//   }
-// };
+//Logout
 export const logUserOut = async (): Promise<void> => {
   try {
     deleteCookie("id1");
@@ -290,5 +233,35 @@ export const logUserOut = async (): Promise<void> => {
       toastId: "login",
       hideProgressBar: true,
     });
+  }
+};
+//Logout
+
+export const getUsers = async (): Promise<User[]> => {
+  const loadingToastId = toast.info("Loading Users...", {
+    position: "top-right",
+    autoClose: false,
+  });
+
+  try {
+    const response: AxiosResponse<ApiResponse> = await api.get(GET_USERS);
+    toast.dismiss(loadingToastId);
+
+    if (response.status === 200) {
+      toast.success("Users Loaded!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        toastId: "chats",
+      });
+    }
+
+    console.log("USERS", response.data.results);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error during login:", error);
+    toast.dismiss(loadingToastId);
+
+    return [];
   }
 };

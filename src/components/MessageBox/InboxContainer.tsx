@@ -1,20 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Label } from "../UI/Input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import PersonMessage from "./AllMessages";
-import { getChatsApi } from "../../context/api";
+import { getChatsApi, getUsers } from "../../context/api";
 
 const InboxContainer = () => {
+  interface ComponentUser {
+    id: string;
+    name: string;
+    email: string;
+    firstname: "Oladosu";
+    lastname: "Larinde";
+  }
+  const [users, setUsers] = useState<ComponentUser[]>([]);
+
   useEffect(() => {
-    getChatsApi()
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+    const fetchData = async () => {
+      try {
+        const usersData = await getUsers();
+        setUsers(usersData);
+        console.log("lol", users);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // The
 
   return (
     <div className="w-full">
@@ -41,26 +54,13 @@ const InboxContainer = () => {
       </header>
       <hr className="py-0.2 h-0 mt-7 bg-gray-300 w-full mx-auto" />
       <section className="py-2 px-4 sm:px-6 md:px-8 lg:ps-72 mt-3 overflow-y-auto h-[70vh]">
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
-        <PersonMessage />
+        {users.map((user) => (
+          <PersonMessage
+            name={user.firstname}
+            id={user.id}
+            email={user.email}
+          />
+        ))}
       </section>
     </div>
   );

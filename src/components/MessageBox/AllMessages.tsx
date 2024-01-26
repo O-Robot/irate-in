@@ -1,6 +1,7 @@
 import React from "react";
 
-const PersonMessage = () => {
+const PersonMessage = (props: any) => {
+  const { name, email, id } = props;
   return (
     <div className="flex items-center gap-3 py-3">
       <img
@@ -11,7 +12,7 @@ const PersonMessage = () => {
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-between">
           <p className="text-xl leading-snug font-normal text-[#4F4F4F]">
-            Abraham
+            {name}
           </p>
           <span className="text-[#000] text-[12px] font-normal ">3:45 PM</span>
         </div>

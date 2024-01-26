@@ -73,7 +73,7 @@ const SignUp = () => {
   const handleSignUp = async () => {
     try {
       const response = await signupApi(firstName, lastName, password, email);
-
+      console.log(response);
       if (response.success) {
         navigate("/");
         console.log("SignUp successful");
