@@ -6,9 +6,7 @@ import { getCookie } from "../../context/utility";
 import { toast } from "react-toastify";
 
 const ProtectedRoute = () => {
-
   const location = useLocation();
- 
 
   let access = getCookie("id1");
   let refresh = getCookie("id2");
@@ -21,6 +19,7 @@ const ProtectedRoute = () => {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
+        toastId: "nosession",
       })}
       <Navigate to="/" />
     </>

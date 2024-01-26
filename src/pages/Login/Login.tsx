@@ -8,17 +8,33 @@ import { loginApi } from "../../context/api";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/UserContext";
-import { setCookie } from "../../context/utility";
+import { getCookie, setCookie } from "../../context/utility";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const { auth, setAuth } = useAuth();
-
+  let access = getCookie("id1");
+  let refresh = getCookie("id2");
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [errorType, setErrorType] = useState<string>("");
+
+  const reDirect = () => {
+    if (access && refresh) {
+      navigate("/dashboard");
+    }
+    toast.warning("Logout to visit Login Screen.", {
+      position: "top-right",
+      autoClose: 3000,
+      toastId: "login",
+      hideProgressBar: true,
+    });
+  };
+  useEffect(() => {
+    reDirect();
+  }, []);
 
   const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 

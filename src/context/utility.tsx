@@ -38,17 +38,3 @@ export function deleteCookie(cname: string) {
     document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
   }
 }
-
-
-
-export const logUserOut = () => {
-  return async () => {
-    try {
-      deleteCookie("id1");
-      deleteCookie("id2");
-     
-    } catch (err) {
-      console.warn(`logUserOut`, String(err));
-    }
-  };
-};

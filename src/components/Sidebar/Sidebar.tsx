@@ -1,7 +1,7 @@
 import { faComments } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import home from "../../assets/home.png";
 import Logo from "../Logo/Logo";
 import {
@@ -11,8 +11,10 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
+import { logUserOut } from "../../context/api";
 
 const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
   return (
@@ -43,7 +45,7 @@ const Sidebar: React.FC = () => {
             <li className="bg-slate-300/10">
               <Link
                 className="flex items-center gap-x-3.5 py-4 px-5 text-sm text-white "
-                onClick={()=>setShowSidebar(false)}
+                onClick={() => setShowSidebar(false)}
                 to={"/dashboard"}
               >
                 <FontAwesomeIcon icon={faComments} size="lg" />
@@ -55,7 +57,10 @@ const Sidebar: React.FC = () => {
         <div className="p-6">
           <button
             type="submit"
-            onClick={() => alert("Coming Soon!")}
+            onClick={() => {
+              logUserOut();
+              navigate("/");
+            }}
             className="flex w-full border-none justify-center rounded-md px-3 py-3 text-sm text-left bg-[#FFEBEB]  text-[#FF0000]"
           >
             <FontAwesomeIcon

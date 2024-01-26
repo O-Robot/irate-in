@@ -37,6 +37,7 @@ export const signupApi = async (
   const loadingToastId = toast.info("Creating account...", {
     position: "top-right",
     autoClose: false,
+    toastId: "signup",
   });
 
   try {
@@ -54,12 +55,14 @@ export const signupApi = async (
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
+        toastId: "signup",
       });
     } else {
       toast.error("Account not Created!", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
+        toastId: "signup",
       });
     }
 
@@ -72,6 +75,7 @@ export const signupApi = async (
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: true,
+      toastId: "signup",
     });
 
     return { success: false, access: "", refresh: "" };
@@ -87,6 +91,7 @@ export const loginApi = async (
   const loadingToastId = toast.info("Logging in...", {
     position: "top-right",
     autoClose: false,
+    toastId: "login",
   });
 
   try {
@@ -102,12 +107,14 @@ export const loginApi = async (
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
+        toastId: "login",
       });
     } else {
       toast.error("Login Failed! Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
+        toastId: "login",
       });
     }
 
@@ -120,6 +127,7 @@ export const loginApi = async (
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: true,
+      toastId: "login",
     });
 
     return { success: false, access: "", refresh: "" };
@@ -129,7 +137,7 @@ export const loginApi = async (
 
 // getChats
 export const getChatsApi = async (): Promise<ApiResponse> => {
-  const loadingToastId = toast.info("Logging in...", {
+  const loadingToastId = toast.info("Loading chats...", {
     position: "top-right",
     autoClose: false,
   });
@@ -141,27 +149,31 @@ export const getChatsApi = async (): Promise<ApiResponse> => {
     if (response.status === 200) {
       toast.success("Chats Loaded!", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
         hideProgressBar: true,
-      });
-    } else {
-      toast.error("Login Failed! Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
+        toastId: "chats",
       });
     }
+    // else {
+    //   toast.error("Chats Failed! Please try again.", {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: true,
+    //     toastId: "chats",
+    //   });
+    // }
 
     return response.data;
   } catch (error) {
     console.error("Error during login:", error);
     toast.dismiss(loadingToastId);
 
-    toast.error("Error Retrieving Chats.", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
+    // toast.error("Error Retrieving Chats.", {
+    //   position: "top-right",
+    //   autoClose: 3000,
+    //   hideProgressBar: true,
+    //   toastId: "chats",
+    // });
 
     return { success: false, access: "", refresh: "" };
   }
@@ -176,6 +188,7 @@ export const addPerson = async (
   const loadingToastId = toast.info("Adding Person...", {
     position: "top-right",
     autoClose: false,
+    toastId: "add",
   });
 
   try {
@@ -191,18 +204,19 @@ export const addPerson = async (
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
+        toastId: "add",
       });
     } else {
       toast.error("Adding Failed! Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true,
+        toastId: "add",
       });
     }
 
     return response.data;
   } catch (error) {
-    console.error("Error Adding Person:", error);
     toast.dismiss(loadingToastId);
 
     toast.error("Error Adding Person! Please try again.", {
@@ -266,32 +280,14 @@ export const addPerson = async (
 //   }
 // };
 export const logUserOut = async (): Promise<void> => {
-  const access = getCookie("id1");
-  const refresh = getCookie("id2");
-  const loadingToastId = toast.info("Adding Person...", {
-    position: "top-right",
-    autoClose: false,
-  });
-
   try {
     deleteCookie("id1");
     deleteCookie("id2");
-
-    toast.dismiss(loadingToastId);
-
-    if (!access && !refresh) {
-      toast.success("Logout Successful!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
-    }
   } catch (error) {
-    toast.dismiss(loadingToastId);
-
     toast.error("Error Logging User out! Please try again.", {
       position: "top-right",
       autoClose: 3000,
+      toastId: "login",
       hideProgressBar: true,
     });
   }
