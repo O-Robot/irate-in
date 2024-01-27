@@ -10,8 +10,8 @@ const InboxContainer = () => {
     id: string;
     name: string;
     email: string;
-    firstname: "Oladosu";
-    lastname: "Larinde";
+    firstname: string;
+    lastname: string;
   }
   const [users, setUsers] = useState<ComponentUser[]>([]);
   const [search, setSearch] = useState("");
