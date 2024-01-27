@@ -98,7 +98,7 @@ const Login = () => {
   return (
     <section className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="mx-auto w-full ">
-        <Logo color={"#0B468C"} />
+        <Logo />
 
         {/* //Boxes  */}
         <div className="mt-10 px-5 mx-auto w-full  lg:max-w-lg border-solid border-2 text-left border-gray-100 rounded-lg">
@@ -135,6 +135,7 @@ const Login = () => {
               />
               <div className="mt-2">
                 <Input
+                  id="email"
                   name="email"
                   type="email"
                   value={email}
@@ -162,6 +163,7 @@ const Login = () => {
                 </div>
                 <div className="mt-2">
                   <Input
+                    id="password"
                     name="password"
                     type="password"
                     value={password}

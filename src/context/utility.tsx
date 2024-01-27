@@ -32,9 +32,8 @@ export function getCookie(cname: string, cookie?: string) {
 }
 
 export function deleteCookie(cname: string) {
-  if (window.location.origin.includes("vercel.app")) {
-    document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/ ogooluwani-iratein.vercel.app/`;
-  } else {
-    document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-  }
+  const path =
+    window.location.pathname === "/" ? "/" : window.location.pathname;
+  document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};`;
 }
+

@@ -5,11 +5,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 import LMessage from "./lMessage";
 import RMessage from "./rMessage";
+import { toast } from "react-toastify";
 
 const MessageBox = () => {
   const [newMessage, setNewMessage] = useState<string>("");
 
-  const handleSendMessage = () => {};
+  const handleSendMessage = () => {
+    toast.info("Sending Message...", {
+      position: "top-right",
+      autoClose: 1000,
+      toastId: "sending",
+      hideProgressBar: true,
+    });
+    setTimeout(() => {
+      toast.error("Sending Failed! Contact Support.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        toastId: "failed",
+      });
+    }, 2000);
+  };
   return (
     <>
       <section id="noSelectedMessage">
@@ -84,8 +100,11 @@ const MessageBox = () => {
             />
             <div className="flex rounded-lg shadow-sm">
               <Input
-                name="search"
+                id="message"
+                name="message"
                 type="text"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
                 placeholder="Write your Message"
                 className="block w-full text-gray-900 shadow-sm placeholder:text-[#828282] pe-14 py-5 px-4 bg-[#F8F8F8] rounded-md text-sm  focus:z-10 focus:outline-none focus:border-none focus:ring-none  "
               />
@@ -93,7 +112,7 @@ const MessageBox = () => {
               <button
                 type="button"
                 onClick={() => {
-                  alert("Sent");
+                  handleSendMessage();
                 }}
                 className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-[#F8F8F8]"
               >

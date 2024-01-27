@@ -6,7 +6,11 @@ import { deleteCookie, getCookie, setCookie } from "./utility";
 
 const authToken = `Bearer ${getCookie("id1")}`;
 const api: AxiosInstance = axios.create({
-  baseURL: "https://irateinchat.pythonanywhere.com/api/v1/",
+  baseURL: "http://irateinchat.pythonanywhere.com/api/v1/",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: authToken,
+  },
 });
 
 export const USER_CREATE = "/auth/users/";
@@ -142,18 +146,9 @@ export const getChatsApi = async (): Promise<ApiResponse> => {
     position: "top-right",
     autoClose: false,
   });
-  const options = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    },
-  };
 
   try {
-    const response: AxiosResponse<ApiResponse> = await api.get(
-      GET_CHATS,
-      options
-    );
+    const response: AxiosResponse<ApiResponse> = await api.get(GET_CHATS);
     toast.dismiss(loadingToastId);
 
     if (response.status === 200) {
@@ -226,45 +221,51 @@ export const addPerson = async (
 // addPerson
 
 //Logout
-export const logUserOut = () => {
-  deleteCookie("id1");
-  deleteCookie("id2");
+export const logUserOut = async (): Promise<{
+  success: boolean;
+  error?: string;
+}> => {
+  try {
+    deleteCookie("id1");
+    deleteCookie("id2");
+    return { success: true };
+  } catch (error) {
+    toast.error("Error Logging User out! Please try again.", {
+      position: "top-right",
+      autoClose: 3000,
+      toastId: "login",
+      hideProgressBar: true,
+    });
+
+    return { success: false, error: "Failed to log user out." };
+  }
 };
 //Logout
 
 export const getUsers = async (): Promise<User[]> => {
-  const loadingToastId = toast.info("Loading Users...", {
-    position: "top-right",
-    autoClose: false,
-  });
-  const options = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    },
-  };
+  // const loadingToastId = toast.info("Loading Users...", {
+  //   position: "top-right",
+  //   autoClose: false,
+  // });
 
   try {
-    const response: AxiosResponse<ApiResponse> = await api.get(
-      GET_USERS,
-      options
-    );
-    toast.dismiss(loadingToastId);
+    const response: AxiosResponse<ApiResponse> = await api.get(GET_USERS);
+    // toast.dismiss(loadingToastId);
 
-    if (response.status === 200) {
-      toast.success("Users Loaded!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        toastId: "chats",
-      });
-    }
+    // if (response.status === 200) {
+    //   toast.success("Users Loaded!", {
+    //     position: "top-right",
+    //     autoClose: 2000,
+    //     hideProgressBar: true,
+    //     toastId: "chats",
+    //   });
+    // }
 
     console.log("USERS", response.data.results);
     return response.data.results;
   } catch (error) {
     console.error("Error during login:", error);
-    toast.dismiss(loadingToastId);
+    // toast.dismiss(loadingToastId);
 
     return [];
   }

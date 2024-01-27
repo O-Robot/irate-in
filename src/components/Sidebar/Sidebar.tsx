@@ -12,10 +12,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 import { logUserOut } from "../../context/api";
+import { toast } from "react-toastify";
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
+
+  const handlelogOut = async () => {
+    const result = await logUserOut();
+
+    if (result.success) {
+      toast.success("Logged out Successfully.", {
+        position: "top-right",
+        autoClose: 3000,
+        toastId: "login",
+        hideProgressBar: true,
+      });
+      navigate("/");
+    } else {
+      toast.error("Error Logging User out! Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        toastId: "login",
+        hideProgressBar: true,
+      });
+    }
+  };
 
   return (
     <section>
@@ -37,7 +59,7 @@ const Sidebar: React.FC = () => {
           </div>
         )}
         <div className="px-6">
-          <Logo colour={"white"} />
+          <Logo />
         </div>
         {/* Logo  */}
         <nav className="p-6 h-[80%] mt-5 w-full flex flex-col flex-wrap lg:h-[83%]">
@@ -58,7 +80,7 @@ const Sidebar: React.FC = () => {
           <button
             type="submit"
             onClick={() => {
-              logUserOut();
+              handlelogOut();
               navigate("/");
             }}
             className="flex w-full border-none justify-center rounded-md px-3 py-3 text-sm text-left bg-[#FFEBEB]  text-[#FF0000]"

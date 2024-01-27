@@ -14,6 +14,7 @@ const InboxContainer = () => {
     lastname: "Larinde";
   }
   const [users, setUsers] = useState<ComponentUser[]>([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +26,7 @@ const InboxContainer = () => {
         console.error("Error fetching user data:", error);
       }
     };
+    setInterval(() => fetchData(), 30000);
 
     fetchData();
   }, []); // The
@@ -44,8 +46,11 @@ const InboxContainer = () => {
               <FontAwesomeIcon icon={faSearch} className="text-[#E0E0E0]" />
             </div>
             <Input
+              id="search"
               name="search"
               type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search for message"
               className="block w-full bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-[#E0E0E0] placeholder:text-[#828282] mb-3 py-3 px-4 ps-11 border-[#828282] rounded-md text-sm focus:border-[#0B468C] focus:ring-[#0B468C] "
             />
