@@ -6,12 +6,17 @@ type User = {
   userEmail: string;
   fullname: string;
 };
-
+type UserM = {
+  id: string;
+  email: string;
+  name: string;
+};
 type AuthContextProps = {
   auth: {
     user: User;
+    userm: UserM;
   };
-  setAuth: React.Dispatch<React.SetStateAction<{ user: User }>>;
+  setAuth: React.Dispatch<React.SetStateAction<{ user: User; userm: UserM }>>;
 };
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
@@ -22,7 +27,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const storedAuth = localStorage.getItem("auth");
-  const initialAuth = storedAuth ? JSON.parse(storedAuth) : { user: {} };
+  const initialAuth = storedAuth
+    ? JSON.parse(storedAuth)
+    : { user: {}, userm: {} };
 
   const [auth, setAuth] = useState(initialAuth);
 

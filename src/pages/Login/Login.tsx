@@ -88,7 +88,7 @@ const Login = () => {
         fullname: userInfo.fullname,
         userEmail: userInfo.email,
       };
-      setAuth({ user: updatedUserDetails });
+      setAuth((prevAuth) => ({ ...prevAuth, user: updatedUserDetails }));
       navigate("/dashboard");
     } catch (error) {
       console.error("Error during signup:", error);
