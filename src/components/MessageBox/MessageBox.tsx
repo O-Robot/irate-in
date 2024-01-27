@@ -30,7 +30,7 @@ const MessageBox = () => {
   };
   return (
     <>
-      {auth.userm ? (
+      {auth.userm.name ? (
         <section
           id="selectedMessage"
           className="border-e border-gray-200 pt-7 pb-10 overflow-y-hidden lg:block lg:translate-x-0 h-[100vh] flex-col flex-wrap"

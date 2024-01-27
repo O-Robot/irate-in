@@ -2,7 +2,7 @@ export function setCookie(cname: string, cvalue: string, exdays = 3) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   let expires = "expires=" + d.toUTCString();
-  if (window.location.origin.includes("runplugit.com")) {
+  if (window.location.origin.includes("/")) {
     document.cookie = cname + "=" + cvalue + ";" + expires + `; path=/;`;
   } else {
     document.cookie =
