@@ -9,7 +9,6 @@ const api: AxiosInstance = axios.create({
   baseURL: "https://irateinchat.pythonanywhere.com/api/v1/",
   headers: {
     "Content-Type": "application/json",
-    Authorization: authToken,
   },
 });
 
@@ -243,23 +242,31 @@ export const logUserOut = async (): Promise<{
 //Logout
 
 export const getUsers = async (): Promise<User[]> => {
-  // const loadingToastId = toast.info("Loading Users...", {
-  //   position: "top-right",
-  //   autoClose: false,
-  // });
+  const loadingToastId = toast.info("Loading Users...", {
+    position: "top-right",
+    autoClose: false,
+  });
 
   try {
-    const response: AxiosResponse<ApiResponse> = await api.get(GET_USERS);
-    // toast.dismiss(loadingToastId);
+    const response: AxiosResponse<ApiResponse> = await axios.get(
+      `https://irateinchat.pythonanywhere.com/api/v1/${GET_USERS}`,
+      {
+        headers: {
+          Authorization: `${authToken}`,
+        },
+      }
+    );
 
-    // if (response.status === 200) {
-    //   toast.success("Users Loaded!", {
-    //     position: "top-right",
-    //     autoClose: 2000,
-    //     hideProgressBar: true,
-    //     toastId: "chats",
-    //   });
-    // }
+    toast.dismiss(loadingToastId);
+
+    if (response.status === 200) {
+      toast.success("Users Loaded!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        toastId: "chats",
+      });
+    }
 
     console.log("USERS", response.data.results);
     return response.data.results;
