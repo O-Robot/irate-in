@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import image from "../../assets/image.png";
 import { Input, Label } from "../UI/Input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import { faComments, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 import LMessage from "./lMessage";
 import RMessage from "./rMessage";
 import { toast } from "react-toastify";
@@ -29,7 +29,7 @@ const MessageBox = () => {
   return (
     <>
       <section id="noSelectedMessage">
-        {/* <div className="flex  justify-center  w-full h-[80vh] overflow-y-hidden sm:px-6 md:px-8  flex-col items-center align-middle ">
+        <div className="flex  justify-center  w-full h-[80vh] overflow-y-hidden sm:px-6 md:px-8  flex-col items-center align-middle ">
         <div className="flex justify-center flex-col items-center text-[#828282] w-[308px] text-center ">
           <FontAwesomeIcon
             icon={faComments}
@@ -41,7 +41,7 @@ const MessageBox = () => {
             Click on chat to read conversation
           </p>
         </div>
-      </div> */}
+      </div>
       </section>
       <section
         id="selectedMessage"

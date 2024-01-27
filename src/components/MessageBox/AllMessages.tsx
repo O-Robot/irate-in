@@ -3,7 +3,7 @@ import React from "react";
 const PersonMessage = (props: any) => {
   const { name, email, id } = props;
   return (
-    <div className="flex items-center gap-3 py-3">
+    <div className="flex items-center gap-3 py-3 hover:bg-slate-400/50 w-full">
       <img
         className="inline-block h-[40px] w-[40px] rounded-[16px]"
         src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
