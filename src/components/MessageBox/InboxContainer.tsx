@@ -26,7 +26,7 @@ const InboxContainer = () => {
   };
   useEffect(() => {
     fetchData();
-    setInterval(() => fetchData(), 3000);
+    setInterval(() => fetchData(), 30000);
   }, []); // The
 
   return (
