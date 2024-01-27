@@ -31,12 +31,6 @@ export function getCookie(cname: string, cookie?: string) {
   return "";
 }
 
-// export function deleteCookie(cname: string) {
-//   const path =
-//     window.location.pathname === "/" ? "/" : window.location.pathname;
-//   document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path};`;
-// }
-
 export function deleteCookie(cname: string) {
   const date = new Date();
 

@@ -228,25 +228,38 @@ export const addPerson = async (
 // addPerson
 
 //Logout
-export const logUserOut = async (): Promise<{
-  success: boolean;
-  error?: string;
-}> => {
-  try {
+export const logUserOut = () => {
+  if (window.confirm("Do you want to log out")) {
     deleteCookie("id1");
     deleteCookie("id2");
-    return { success: true };
-  } catch (error) {
-    toast.error("Error Logging User out! Please try again.", {
+    window.location.replace("/");
+    toast.success("Logged Out!", {
       position: "top-right",
       autoClose: 3000,
       toastId: "login",
       hideProgressBar: true,
     });
-
-    return { success: false, error: "Failed to log user out." };
   }
 };
+// export const logUserOut = async (): Promise<{
+//   success: boolean;
+//   error?: string;
+// }> => {
+//   try {
+//     deleteCookie("id1");
+//     deleteCookie("id2");
+//     return { success: true };
+//   } catch (error) {
+//     toast.error("Error Logging User out! Please try again.", {
+//       position: "top-right",
+//       autoClose: 3000,
+//       toastId: "login",
+//       hideProgressBar: true,
+//     });
+
+//     return { success: false, error: "Failed to log user out." };
+//   }
+// };
 //Logout
 
 export const getUsers = async (): Promise<User[]> => {

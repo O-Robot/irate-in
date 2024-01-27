@@ -18,26 +18,26 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
-  const handlelogOut = async () => {
-    const result = await logUserOut();
+  // const handlelogOut = async () => {
+  //   const result = await logUserOut();
 
-    if (result.success) {
-      toast.success("Logged out Successfully.", {
-        position: "top-right",
-        autoClose: 3000,
-        toastId: "login",
-        hideProgressBar: true,
-      });
-      navigate("/");
-    } else {
-      toast.error("Error Logging User out! Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-        toastId: "login",
-        hideProgressBar: true,
-      });
-    }
-  };
+  //   if (result.success) {
+  //     toast.success("Logged out Successfully.", {
+  //       position: "top-right",
+  //       autoClose: 3000,
+  //       toastId: "login",
+  //       hideProgressBar: true,
+  //     });
+  //     navigate("/");
+  //   } else {
+  //     toast.error("Error Logging User out! Please try again.", {
+  //       position: "top-right",
+  //       autoClose: 3000,
+  //       toastId: "login",
+  //       hideProgressBar: true,
+  //     });
+  //   }
+  // };
 
   return (
     <section>
@@ -80,8 +80,7 @@ const Sidebar: React.FC = () => {
           <button
             type="submit"
             onClick={() => {
-              handlelogOut();
-              navigate("/");
+              logUserOut();
             }}
             className="flex w-full border-none justify-center rounded-md px-3 py-3 text-sm text-left bg-[#FFEBEB]  text-[#FF0000]"
           >
