@@ -6,7 +6,7 @@ import { deleteCookie, getCookie, setCookie } from "./utility";
 
 const authToken = `Bearer ${getCookie("id1")}`;
 const api: AxiosInstance = axios.create({
-  baseURL: "http://irateinchat.pythonanywhere.com/api/v1/",
+  baseURL: "https://irateinchat.pythonanywhere.com/api/v1/",
 });
 
 export const USER_CREATE = "/auth/users/";
