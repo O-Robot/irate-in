@@ -7,11 +7,6 @@ import { deleteCookie, getCookie, setCookie } from "./utility";
 const authToken = `Bearer ${getCookie("id1")}`;
 const api: AxiosInstance = axios.create({
   baseURL: "http://irateinchat.pythonanywhere.com/api/v1/",
-  timeout: 5000, // request timeout in milliseconds
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: authToken,
-  },
 });
 
 export const USER_CREATE = "/auth/users/";
@@ -147,9 +142,18 @@ export const getChatsApi = async (): Promise<ApiResponse> => {
     position: "top-right",
     autoClose: false,
   });
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    },
+  };
 
   try {
-    const response: AxiosResponse<ApiResponse> = await api.get(GET_CHATS);
+    const response: AxiosResponse<ApiResponse> = await api.get(
+      GET_CHATS,
+      options
+    );
     toast.dismiss(loadingToastId);
 
     if (response.status === 200) {
@@ -222,18 +226,9 @@ export const addPerson = async (
 // addPerson
 
 //Logout
-export const logUserOut = async (): Promise<void> => {
-  try {
-    deleteCookie("id1");
-    deleteCookie("id2");
-  } catch (error) {
-    toast.error("Error Logging User out! Please try again.", {
-      position: "top-right",
-      autoClose: 3000,
-      toastId: "login",
-      hideProgressBar: true,
-    });
-  }
+export const logUserOut = () => {
+  deleteCookie("id1");
+  deleteCookie("id2");
 };
 //Logout
 
@@ -242,9 +237,18 @@ export const getUsers = async (): Promise<User[]> => {
     position: "top-right",
     autoClose: false,
   });
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    },
+  };
 
   try {
-    const response: AxiosResponse<ApiResponse> = await api.get(GET_USERS);
+    const response: AxiosResponse<ApiResponse> = await api.get(
+      GET_USERS,
+      options
+    );
     toast.dismiss(loadingToastId);
 
     if (response.status === 200) {
