@@ -15,20 +15,18 @@ const InboxContainer = () => {
   }
   const [users, setUsers] = useState<ComponentUser[]>([]);
   const [search, setSearch] = useState("");
-
+  const fetchData = async () => {
+    try {
+      const usersData = await getUsers();
+      setUsers(usersData);
+      console.log("lol", users);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const usersData = await getUsers();
-        setUsers(usersData);
-        console.log("lol", users);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    setInterval(() => fetchData(), 30000);
-
     fetchData();
+    setInterval(() => fetchData(), 3000);
   }, []); // The
 
   return (
