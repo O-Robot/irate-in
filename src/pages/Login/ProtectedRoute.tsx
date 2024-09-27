@@ -1,13 +1,10 @@
 // ProtectedRoute.tsx
 import React from "react";
-import { Route, Navigate, useLocation, Outlet } from "react-router-dom";
-import { useAuth } from "../../context/UserContext";
+import { Navigate, Outlet } from "react-router-dom";
 import { getCookie } from "../../context/utility";
 import { toast } from "react-toastify";
 
 const ProtectedRoute = () => {
-  const location = useLocation();
-
   let access = getCookie("id1");
   let refresh = getCookie("id2");
 

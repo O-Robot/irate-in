@@ -57,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ showSidebar, setShowSidebar }) => {
               <img
                 className="inline-block h-[32px] w-[32px] rounded-full"
                 src="https://ogooluwaniadewale.com/icons/favicon.ico"
-                alt="Image Description"
+                alt="Description"
               />
               <p className="text-[#4F4F4F]">{auth.user.fullname} </p>
               <FontAwesomeIcon
